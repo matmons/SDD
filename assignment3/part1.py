@@ -80,11 +80,12 @@ class Part1:
                         "start_date_time": start_date_time,
                         "end_date_time": end_date_time,
                         "trackpoints": related_tps,
+                        "user": user
                     }
                     activities.append(activity)
                     user_activities.append(a_id)
                 file.close()
-        return activities, tps, user_activities
+        return tps, activities, user_activities
 
     def create_coll(self, collection_name):
         collection = self.db.create_collection(collection_name)
@@ -129,7 +130,7 @@ def main():
                 program.insert_documents(collection_name="Trackpoint", docs=tps)
                 program.insert_documents(collection_name="Activity", docs=activities)
             users_activity_linked[user] = user_activities
-            print("Progress: ", 100 * round((i+1)/ 181, 3), " %")
+            print("Progress: ", 100 * round((i+1) / 181, 3), " %")
         users = program.clean_users(user_list, users_activity_linked, path=data_path)
         program.insert_documents(collection_name="User", docs=users)
         program.fetch_documents(collection_name="User")
