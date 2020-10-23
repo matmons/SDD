@@ -45,6 +45,7 @@ class Part1:
                     pass
                 if j > 2506:
                     continue
+            a_id = objectid.ObjectId()
             with open(user_path + "/Trajectory/" + str(activity)) as file:
                 for line_no, line in enumerate(file):
                     if line_no < 6:
@@ -61,7 +62,8 @@ class Part1:
                         "lng": float(tp_data[1]),
                         "altitude": int(round(float(tp_data[3]))),
                         "date_days": float(tp_data[4]),
-                        "date_time": tp_data[5] + " " + tp_data[6]
+                        "date_time": tp_data[5] + " " + tp_data[6],
+                        "activity": a_id
                     }
                     tps.append(tp)
                 end = line.strip().split(",")
@@ -73,7 +75,6 @@ class Part1:
                     transportation_mode = transportation_labels[end_date_time]
 
                 if len(related_tps):
-                    a_id = objectid.ObjectId()
                     activity = {
                         "_id": a_id,
                         "transportation_mode": transportation_mode,
